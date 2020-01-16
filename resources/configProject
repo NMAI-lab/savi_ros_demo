@@ -2,6 +2,7 @@
 # Sample configuration script for projects that use savi_ros_bdi.
 
 # Set the location of savi_ros_bdi here
+#### EDIT THIS LINE ####
 SAVI_ROS_DIR=~/SAVI_ROS/rosjavaWorkspace/src/savi_ros_java/savi_ros_bdi
 
 # Set the location of this project
@@ -15,8 +16,11 @@ CONFIG_PATH_SRC=$PROJECT_DIR$CONFIG_FILE_NAME
 DEST_SUBPATH=/src/main/resources
 CONFIG_PATH_DST=$SAVI_ROS_DIR$DEST_SUBPATH$CONFIG_FILE_NAME
 
-echo $SAVI_ROS_DIR
-echo $CONFIG_PATH_SRC
-echo $CONFIG_PATH_DST
+# Move the settings file to the destination location
+cp -f $CONFIG_PATH_SRC $CONFIG_PATH_DST
+
+#echo $SAVI_ROS_DIR
+#echo $CONFIG_PATH_SRC
+#echo $CONFIG_PATH_DST
 
 #/build/instl/savi_ros_bdi/bin
