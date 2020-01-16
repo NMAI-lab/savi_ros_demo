@@ -7,11 +7,16 @@ SAVI_ROS_DIR=~/SAVI_ROS/rosjavaWorkspace/src/savi_ros_java/savi_ros_bdi
 # Set the location of this project
 PROJECT_DIR="$(pwd)"
 
-# Configuration file path
+# Set configuration file source path
 CONFIG_FILE_NAME=/settings.cfg
-CONFIG_PATH=$PROJECT_DIR$CONFIG_FILE_NAME
+CONFIG_PATH_SRC=$PROJECT_DIR$CONFIG_FILE_NAME
+
+# Set configuration file destination path
+DEST_SUBPATH=/src/main/resources
+CONFIG_PATH_DST=$SAVI_ROS_DIR$DEST_SUBPATH$CONFIG_FILE_NAME
 
 echo $SAVI_ROS_DIR
-echo $CONFIG_PATH
+echo $CONFIG_PATH_SRC
+echo $CONFIG_PATH_DST
 
 #/build/instl/savi_ros_bdi/bin
