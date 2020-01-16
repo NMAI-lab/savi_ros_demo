@@ -8,4 +8,4 @@
  */
 
 
-+time(_) <-  do(action).
++time(_) <- do(something).
