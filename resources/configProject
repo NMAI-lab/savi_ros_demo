@@ -5,7 +5,7 @@
 SAVI_ROS_DIR=~/SAVI_ROS/rosjavaWorkspace/src/savi_ros_java/savi_ros_bdi/
 
 # Set the location of this project
-PROJECT_DIR=pwd
+PROJECT_DIR="$(pwd)"
 
 echo $SAVI_ROS_DIR
 echo $PROJECT_DIR
