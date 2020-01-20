@@ -7,5 +7,4 @@
  * @date	6 December 2019
  */
 
-
-+time(_) <-  do(action).
++time(_) <- do(something).
