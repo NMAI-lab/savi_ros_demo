@@ -1,8 +1,10 @@
-# savi_ros_py
+# savi_ros_demo
 
-Sister repository is at https://github.com/NMAI-lab/savi_ros_bdi
+Welcome to the savi_ros_demo repository. This is a demo project which is intended to show how to setup a project with the savi_ros_bdi package, available at https://github.com/NMAI-lab/savi_ros_bdi.
 
-Uses ROS. See http://wiki.ros.org/ROS/Tutorials
+For instructions on how to set up the savi_ros_bdi package using ROS Kinetic, please see the savi_ros_bdi github page: https://github.com/NMAI-lab/savi_ros_bdi. These instructions assume that you already have a ros workspace with the savi_ros_bdi package set up, as per the instructions at that repository.
+
+This package provides a sample BDI program as well as a sample perception generator and action listener.
 
 Java setup (for the sister repository):
 - mkdir SAVI_ROS
