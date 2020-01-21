@@ -18,9 +18,3 @@ CONFIG_PATH_DST=$SAVI_ROS_DIR$DEST_SUBPATH$CONFIG_FILE_NAME
 
 # Move the settings file to the destination location
 cp -f $CONFIG_PATH_SRC $CONFIG_PATH_DST
-
-#echo $SAVI_ROS_DIR
-#echo $CONFIG_PATH_SRC
-#echo $CONFIG_PATH_DST
-
-#/build/instl/savi_ros_bdi/bin
