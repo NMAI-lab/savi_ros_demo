@@ -40,7 +40,7 @@ $ source devel/setup.bash
 ## Running
 Before running the the demo scripts, roscore and savi_ros_bdi.Main need to be running. Please see the savi_ros_bdi Readme for instructions. It is then recommended that you run the listener first, followed by the talker. These will each need to be executed in thir own terminals.
 ```
-$ rosrun savi_ros_py listener.py
-$ rosrun savi_ros_py talker.py  
+$ rosrun savi_ros_demo listener.py
+$ rosrun savi_ros_demo talker.py  
 ```
 With these scripts running you will see details of the execution print to the terminals. Talker prints the messages being sent to ros, savi_ros_bdi will receive these messages and then publish actions to be executed to the actions topic. The listener prints these messages to the terminal.
