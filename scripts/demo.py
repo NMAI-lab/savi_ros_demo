@@ -19,22 +19,38 @@ def perceptionHandler(consoleSemaphore):
     rate = rospy.Rate(1) # 1hz
     while not rospy.is_shutdown():
         message = "time(%s)" % rospy.get_time()
-        syncPrint(message, consoleSemaphore)
+        syncPrint("I said: " + message, consoleSemaphore)
         pub.publish(message)
         rate.sleep()
 
-#def actionReceiver(data, args):
-#    (consoleSemaphore,_) = args
 def actionReceiver(data, consoleSemaphore): 
-    message = str(rospy.get_caller_id() + 'I heard ' + str(data.data))
+    message = str(rospy.get_caller_id() + 'I heard: ' + str(data.data))
     syncPrint(message, consoleSemaphore)
 
 def actionHandler(consoleSemaphore):
-    #(consoleSemaphore) = args
     syncPrint("Action handler launched", consoleSemaphore)
-    #rospy.Subscriber('actions', String, actionReceiver, (consoleSemaphore,5))
     rospy.Subscriber('actions', String, actionReceiver, consoleSemaphore)
     rospy.spin()
+
+def outboxReceiver(data, consoleSemaphore): 
+    message = str(rospy.get_caller_id() + 'I heard: ' + str(data.data))
+    syncPrint(message, consoleSemaphore)
+
+def outboxHandler(consoleSemaphore):
+    syncPrint("Outbox handler launched", consoleSemaphore)
+    rospy.Subscriber('outbox', String, outboxReceiver, consoleSemaphore)
+    rospy.spin()
+    
+def inboxHandler(consoleSemaphore):
+    syncPrint("Inbox handler launched.", consoleSemaphore)
+
+    pub = rospy.Publisher('inbox', String, queue_size=10)
+    rate = rospy.Rate(1) # 1hz
+    while not rospy.is_shutdown():
+        message = ""<"%s,2,tell,0,anotherTime(%s)" % rospy.get_time()
+        syncPrint("I said: " + message, consoleSemaphore)
+        pub.publish(message)
+        rate.sleep()
 
 def demo():
     rospy.init_node('demoSaviTranslator', anonymous=True)
