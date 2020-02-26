@@ -62,6 +62,9 @@ def demo():
     actionThread = threading.Thread(target=actionHandler, args=(consoleSemaphore,))
     actionThread.start()
     
+    outboxThread = threading.Thread(target=outboxHandler, args=(consoleSemaphore,))
+    outboxThread.start()
+    
 
 if __name__ == '__main__':
     try:
