@@ -1,7 +1,7 @@
 /**
  * Demo BDI program
  * This example BDI program implements the goal 
- * "demonstrate'. This goal has to be passed as 
+ * 'demonstrate'. This goal has to be passed as 
  * an 'achieve' message. Once it has that goal,
  * it performs the action 'do(action)' when it 
  * receives a perception of the format 
