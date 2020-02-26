@@ -62,6 +62,9 @@ def demo():
     actionThread = threading.Thread(target=actionHandler, args=(consoleSemaphore,))
     actionThread.start()
     
+    inboxThread = threading.Thread(target=inboxHandler, args=(consoleSemaphore,))
+    inboxThread.start()
+    
     outboxThread = threading.Thread(target=outboxHandler, args=(consoleSemaphore,))
     outboxThread.start()
     
