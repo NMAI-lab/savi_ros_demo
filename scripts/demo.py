@@ -12,9 +12,7 @@ def syncPrint(message, sem):
     rospy.loginfo(message)
     sem.release()
 
-def perceptionHandler(client,args):
-    (consoleSemaphore) = args
-    
+def perceptionHandler(consoleSemaphore):
     syncPrint("Perception handler launched.", consoleSemaphore)
 
     pub = rospy.Publisher('perceptions', String, queue_size=10)
@@ -25,12 +23,13 @@ def perceptionHandler(client,args):
         pub.publish(message)
         rate.sleep()
 
-def actionReceiver(data, args):
-    (consoleSemaphore) = args
+def actionReceiver(data, consoleSemaphore):
+    #(consoleSemaphore) = args
     message = str(rospy.get_caller_id() + 'I heard ' + str(data.data))
     syncPrint(message, consoleSemaphore)
 
-def actionHandler(client,consoleSemaphore):
+def actionHandler(consoleSemaphore):
+    #(consoleSemaphore) = args
     syncPrint("Action handler launched", consoleSemaphore)
     rospy.Subscriber('actions', String, actionReceiver, (consoleSemaphore,))
     rospy.spin()
