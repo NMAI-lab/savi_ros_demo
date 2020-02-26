@@ -47,7 +47,7 @@ def inboxHandler(consoleSemaphore):
     pub = rospy.Publisher('inbox', String, queue_size=10)
     rate = rospy.Rate(1) # 1hz
     while not rospy.is_shutdown():
-        message = "<" + str(rospy.get_time()) + ",2,achieve,0,demonstrate)>"
+        message = "<" + str(rospy.get_time()) + ",2,achieve,0,demonstrate>"
         syncPrint("I said: " + message, consoleSemaphore)
         pub.publish(message)
         rate.sleep()
