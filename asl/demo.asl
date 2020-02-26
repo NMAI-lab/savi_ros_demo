@@ -10,8 +10,10 @@
 !demonstrate.
 
 +!demonstrate
-	:	time(_)
+	:	time(A) &
+		anotherTime(B)
 	<-	do(something);
+		.broadcast(tell, heardTimes(A,B));
 		!demonstrate.
 		
 +!demonstrate
