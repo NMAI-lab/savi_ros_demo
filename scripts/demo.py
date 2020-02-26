@@ -24,14 +24,14 @@ def perceptionHandler(consoleSemaphore):
         rate.sleep()
 
 def actionReceiver(data, args):
-    (consoleSemaphore) = args
+    (consoleSemaphore,_) = args
     message = str(rospy.get_caller_id() + 'I heard ' + str(data.data))
     syncPrint(message, consoleSemaphore)
 
 def actionHandler(consoleSemaphore):
     #(consoleSemaphore) = args
     syncPrint("Action handler launched", consoleSemaphore)
-    rospy.Subscriber('actions', String, actionReceiver, (consoleSemaphore,))
+    rospy.Subscriber('actions', String, actionReceiver, (consoleSemaphore,5))
     rospy.spin()
 
 def demo():
