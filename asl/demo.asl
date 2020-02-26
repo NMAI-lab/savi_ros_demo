@@ -7,4 +7,12 @@
  * @date	6 December 2019
  */
 
-+time(_) <- do(something).
+!demonstrate.
+
++!demonstrate
+	:	time(_)
+	<-	do(something);
+		!demonstrate.
+		
++!demonstrate
+	<-	!demonstrate.
