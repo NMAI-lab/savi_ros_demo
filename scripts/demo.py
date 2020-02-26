@@ -24,7 +24,7 @@ def perceptionHandler(consoleSemaphore):
         rate.sleep()
 
 def actionReceiver(data, consoleSemaphore):
-    #(consoleSemaphore) = args
+    (consoleSemaphore) = args
     message = str(rospy.get_caller_id() + 'I heard ' + str(data.data))
     syncPrint(message, consoleSemaphore)
 
