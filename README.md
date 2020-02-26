@@ -3,9 +3,9 @@
 Welcome to the savi_ros_demo repository. This is a demo project which is intended to show how to setup a project with the savi_ros_bdi package, available at https://github.com/NMAI-lab/savi_ros_bdi. For instructions on how to set up the savi_ros_bdi package please see the savi_ros_bdi github page.
 
 ## Overview
-This repository contains scripts that demonstrate the functionality of the savi_ros_bdi package for ros. The savi_ros_bdi package listens for perceptions on the ```perceptions``` topic and publishes actions that are to be executed to the ```actions``` topic. This demo contains scripts that generate example perceptions (see scripts/talker.py) as well as a script that listens to the requested actions and prints them to the terminal (see scripts/listener.py). Please note that these scripts are based on a tutorial on the ros website, available at http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29.
+This repository contains scripts that demonstrate the functionality of the savi_ros_bdi package for ros. The savi_ros_bdi package listens for perceptions on the ```perceptions``` topic and publishes actions that are to be executed to the ```actions``` topic. Similarly, it listens to messages on the ```inbox``` topic and publishes messages to the ```outbox``` topic. This demo contains a complete demonstration project, including a Python script that generates example perceptions and messages and listens to to the requested actions and messages, which are printed to the terminal (see scripts/demo.py). Please note that this script is based on a tutorial on the ros website, available at http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29.
 
-The repository also contains a simple AgentSpeak program, located at asl/demo.asl. This program simply requests the do(something) action whenever a message of the format time(T) is receive, regardless of the value of T. Users who are not familiar with AgentSpeek are recommended to visit http://jason.sourceforge.net/ and read the Jason book.
+The repository also contains a simple AgentSpeak program, located at asl/demo.asl. This example BDI program implements the goal ```demonstrate```. This goal has to be passed as an 'achieve' message. Once it has that goal, it performs the action 'do(action)' when it receives a perception of the format 'time(1234)'. It also boradcasts the message heardTime(1234). Users who are not familiar with AgentSpeek are recommended to visit http://jason.sourceforge.net/ and read the Jason book.
 
 Lastly, there is a resources directoy which contains settings.cfg as well as a bash script called configProject. The settings.cfg file contains the path to the AgentSpeak program as well as the name and type of the agent that is being programmed. The configProject script can be used to place the configProject file at the appropriate location in the savi_ros_bdi package.
 
@@ -40,7 +40,6 @@ $ source devel/setup.bash
 ## Running
 Before running the the demo scripts, roscore and savi_ros_bdi.Main need to be running. Please see the savi_ros_bdi Readme for instructions. It is then recommended that you run the listener first, followed by the talker. These will each need to be executed in thir own terminals.
 ```
-$ rosrun savi_ros_demo listener.py
-$ rosrun savi_ros_demo talker.py  
+$ rosrun savi_ros_demo demo.py
 ```
 With these scripts running you will see details of the execution print to the terminals. Talker prints the messages being sent to ros, savi_ros_bdi will receive these messages and then publish actions to be executed to the actions topic. The listener prints these messages to the terminal.
