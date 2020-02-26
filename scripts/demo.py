@@ -12,7 +12,8 @@ def syncPrint(message, sem):
     rospy.loginfo(message)
     sem.release()
 
-def perceptionHandler(client,consoleSemaphore):
+def perceptionHandler(client,args):
+    (consoleSemaphore) = args
     
     syncPrint("Perception handler launched.", consoleSemaphore)
 
