@@ -23,7 +23,7 @@ def perceptionHandler(consoleSemaphore):
         pub.publish(message)
         rate.sleep()
 
-def actionReceiver(data, consoleSemaphore):
+def actionReceiver(data, args):
     (consoleSemaphore) = args
     message = str(rospy.get_caller_id() + 'I heard ' + str(data.data))
     syncPrint(message, consoleSemaphore)
