@@ -1,73 +1,56 @@
 #!/usr/bin/env python
 
+# Demonstration program of the savi_ros_bdi system
+
 # Created on Wed Feb 19 16:17:21 2020
 # @author: Patrick Gavigan
 
 import rospy
-import threading
 from std_msgs.msg import String
 
-def syncPrint(message, sem):
-    sem.acquire()
+
+# Callback function for action messages.
+# Message is pritned to the console logs
+def actionReceiver(data): 
+    message = str(rospy.get_caller_id() + 'I heard: ' + str(data.data))
     rospy.loginfo(message)
-    sem.release()
 
-def perceptionHandler(consoleSemaphore):
-    syncPrint("Perception handler launched.", consoleSemaphore)
 
-    pub = rospy.Publisher('perceptions', String, queue_size=10)
-    rate = rospy.Rate(1) # 1hz
-    while not rospy.is_shutdown():
-        message = "time(%s)" % rospy.get_time()
-        syncPrint("I said: " + message, consoleSemaphore)
-        pub.publish(message)
-        rate.sleep()
-
-def actionReceiver(data, consoleSemaphore): 
+# Callback function for outbox messages.
+# Message is pritned to the console logs
+def outboxReceiver(data): 
     message = str(rospy.get_caller_id() + 'I heard: ' + str(data.data))
-    syncPrint(message, consoleSemaphore)
+    rospy.loginfo(message)
 
-def actionHandler(consoleSemaphore):
-    syncPrint("Action handler launched", consoleSemaphore)
-    rospy.Subscriber('actions', String, actionReceiver, consoleSemaphore)
-    rospy.spin()
 
-def outboxReceiver(data, consoleSemaphore): 
-    message = str(rospy.get_caller_id() + 'I heard: ' + str(data.data))
-    syncPrint(message, consoleSemaphore)
-
-def outboxHandler(consoleSemaphore):
-    syncPrint("Outbox handler launched", consoleSemaphore)
-    rospy.Subscriber('outbox', String, outboxReceiver, consoleSemaphore)
-    rospy.spin()
-    
-def inboxHandler(consoleSemaphore):
-    syncPrint("Inbox handler launched.", consoleSemaphore)
-
-    pub = rospy.Publisher('inbox', String, queue_size=10)
-    rate = rospy.Rate(1) # 1hz
-    while not rospy.is_shutdown():
-        message = "<" + str(rospy.get_time()) + ",2,achieve,0,demonstrate>"
-        syncPrint("I said: " + message, consoleSemaphore)
-        pub.publish(message)
-        rate.sleep()
-
+# Demo program that publishes perceptions and inbox messages and listens to 
+# outobx and action messages
 def demo():
     rospy.init_node('demoSaviTranslator', anonymous=True)
-    consoleSemaphore = threading.Semaphore()
     
-    perceptionThread = threading.Thread(target=perceptionHandler, args=(consoleSemaphore,))
-    perceptionThread.start()
+    # Setup the subscribers
+    rospy.Subscriber('actions', String, actionReceiver)
+    rospy.Subscriber('outbox', String, outboxReceiver)
     
-    actionThread = threading.Thread(target=actionHandler, args=(consoleSemaphore,))
-    actionThread.start()
+    # Setup the publishers
+    inboxPublisher = rospy.Publisher('inbox', String, queue_size=10)
+    perceptionPublisher = rospy.Publisher('perceptions', String, queue_size=10)
     
-    inboxThread = threading.Thread(target=inboxHandler, args=(consoleSemaphore,))
-    inboxThread.start()
-    
-    outboxThread = threading.Thread(target=outboxHandler, args=(consoleSemaphore,))
-    outboxThread.start()
-    
+    rate = rospy.Rate(1) # 1hz
+    while not rospy.is_shutdown():
+        # Publish the inbox message
+        message = "<" + str(rospy.get_time()) + ",2,achieve,0,demonstrate>"
+        rospy.loginfo("I said: " + message)
+        inboxPublisher.publish(message)
+        
+        # Publish the perception
+        message = "time(%s)" % rospy.get_time()
+        rospy.loginfo("I said: " + message)
+        perceptionPublisher.publish(message)
+
+        # Delay until next cycle
+        rate.sleep()
+
 
 if __name__ == '__main__':
     try:
